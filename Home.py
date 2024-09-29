@@ -143,8 +143,7 @@ def profileImg():
     st.html(f"""
         <style>
             .box img {{
-                width: 300px;
-                height: 300px;
+                width: 240px;
                 border-radius: 50%;
             }}
         </style>        
@@ -298,7 +297,8 @@ def accomplishments():
 
 # Footer
 def footer():
-    st.caption(f':blue-background[©] :rainbow[Tassio Steinmann] {datetime.date.today().year}')
+    st.write(f':blue-background[©] :rainbow[Tassio Steinmann] :gray[{datetime.date.today().year}]')
+    #st.caption(f':blue-background[©] :rainbow[Tassio Steinmann] {datetime.date.today().year}')     #shows too big on some devices
 
 def CSS():
     removeTopPadding()
