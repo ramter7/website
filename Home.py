@@ -1,20 +1,52 @@
 import streamlit as st
-import time
 import datetime
 from base64 import b64encode
 
-# Page config (Title, icon, layout, collapsed sidebar and menu) ⭐🌟📄🧑‍💻🚀❤️🤖🏂🪧🏠 
+# Page config (Title, icon, layout, collapsed sidebar and menu)
 st.set_page_config(
     page_title='Home',
     page_icon='🏠',
-    layout='centered',                      #centered or wide
-    initial_sidebar_state='collapsed',      #collapsed sidebar
-    #menu_items={                           #menu items in top right
-    #    'Get Help': 'https://www.extremelycoolapp.com/help',
-    #    'Report a bug': 'https://www.extremelycoolapp.com/bug',
-    #    'About': '# This is a header. This is an *extremely* cool app!'
-    #}
+    layout='centered',
+    initial_sidebar_state='collapsed',
 )
+
+# Light/Dark mode toggle button session state
+ms = st.session_state
+if 'themes' not in ms: 
+    ms.themes = {'currentTheme': 'dark',        
+        'light': {'theme.base': 'dark',
+            #'theme.backgroundColor': 'black',
+            #'theme.primaryColor': '#c98bdb',
+            #'theme.secondaryBackgroundColor': '#5591f5',
+            #'theme.textColor': 'white',
+            'buttonFace': 'Dark 🌜'},  #🌑
+
+        'dark':  {'theme.base': 'light',
+            #'theme.backgroundColor': 'white',
+            #'theme.primaryColor': '#5591f5',
+            #'theme.secondaryBackgroundColor': '#82E1D7',
+            #'theme.textColor': '#0a1464',
+            'buttonFace': 'Light 🌞'}, #🌕
+        }
+
+# Change theme from/to light/dark
+def changeTheme():
+    previousTheme = ms.themes['currentTheme']
+    themeDict = ms.themes['light'] if ms.themes['currentTheme'] == 'light' else ms.themes['dark']
+    for key, val in themeDict.items(): 
+        if key.startswith('theme'): st._config.set_option(key, val)
+
+    if previousTheme == 'dark': ms.themes['currentTheme'] = 'light'
+    elif previousTheme == 'light': ms.themes['currentTheme'] = 'dark'
+
+# Toggle light/dark theme (OLD)
+def themeToggle():   
+    if st.toggle('Dark/Light Mode 🌓', value=True) is False:
+        st.toast('Light mode 🌕')
+        st._config.set_option(f'theme.base', 'dark')
+    else:
+        st.toast('Dark mode 🌑')
+        st._config.set_option(f'theme.base', 'light')
 
 # Remove some top padding
 def removeTopPadding():
@@ -42,21 +74,17 @@ def pulseHover():
         </style>
     """)
 
-    #st.markdown('<h1 class='pulse'>Hover over me!</h1>', unsafe_allow_html=True)
-
 # Color change on hover
 def textHover():
     st.html("""
         <style>
             .text-hover:hover {
-                color: #FF5733; /* Change color on hover */
+                color: #FF4B4B;
                 #transform: scale(1.1);
                 transition: all 0.3s ease;
             }
         </style>
     """)
-
-    #st.markdown('<h1 class='text-hover'>Hover over this text!</h1>', unsafe_allow_html=True)
 
 # Image zoom on hover
 def imageHover():
@@ -82,9 +110,6 @@ def imageHover():
         </style>
     """)
 
-    #imageHtml = "<img src='https://via.placeholder.com/300' class='image-hover' style='width: 300px;'/>"
-    #st.markdown(imageHtml, unsafe_allow_html=True)
-
 # Button zoom on hover
 def buttonHover():
     st.html("""
@@ -95,8 +120,6 @@ def buttonHover():
             }
         </style>
     """)
-
-    #st.button('Button')
 
 # Hide image fullscreen option
 def hideImageFullscreenOption():
@@ -196,7 +219,7 @@ def education():
 # Interests
 def interests():
     st.subheader('Interests')
-    interests = ['🎮Games', '🕸️Webdesign', '🖥️Coding', '🕹️VR & XR', '💬Languages', '💭Lucid dreaming']
+    interests = ['🎮Games', '🕸️Webdesign', '🖥️Coding', '🕹️VR & XR', '💬Languages', '💭Lucid dreaming']  #💻🖥️ 🕹️🕶️👓🌐   
     for i in interests:
         st.write(i)
 
@@ -207,10 +230,14 @@ def projectsStyle(projectName, imageWidth, useColumnWidth):
         with col1:
             st.image(f'./projects/{projectName}/featured.jpg', width=imageWidth, use_column_width=useColumnWidth)
         with col2:
-            st.header(projectName)
-            if st.button('Details', type='primary', key=projectName):
+            #st.page_link(f'pages/{projectName}.py', label=projectName, icon='🔍')
+            #OR
+            st.header(projectName)            
+            if st.button('Details 🔍', type='primary', key=projectName):
                 st.success('Clicked!')
                 st.switch_page(f'pages/{projectName}.py')
+            #OR
+            #st.page_link(f'pages/{projectName}.py', label='Details', icon='🔍')
 
 # Projects
 def projects():
@@ -218,7 +245,7 @@ def projects():
     projectsImageWidth = 300
     useColumnWidth = True
 
-    projects =	{
+    projects =	[
         'VR for Pilots',
         'Toekomst Coderen AR',
         'Become a Virtual Groninger 2D',
@@ -230,11 +257,11 @@ def projects():
         'Smoking Allowed VR',
         'Endless Mine 2D',
         'CarCraft 3D'
-    }
+    ]
     for projectName in projects:
         projectsStyle(projectName, projectsImageWidth, useColumnWidth)
 
-# Skills
+# Skills (https://fontawesome.com/icons or https://www.iconfinder.com/)
 def skills():
     st.header('Skills')
     skillsSVGwidth = 100
@@ -253,7 +280,7 @@ def skills():
         st.image('./icons/git.svg', caption='Git', width=skillsSVGwidth, use_column_width=useColumnWidth)
         st.image('./icons/html5.svg', caption='HTML&CSS', width=skillsSVGwidth, use_column_width=useColumnWidth)
 
-# Languages
+# Languages (https://kapowaz.github.io/square-flags/gallery)
 def languages():
     st.header('Languages')
     languagesSVGwidth = 100
@@ -297,8 +324,7 @@ def accomplishments():
 
 # Footer
 def footer():
-    st.write(f':blue-background[©] :rainbow[Tassio Steinmann] :gray[{datetime.date.today().year}]')
-    #st.caption(f':blue-background[©] :rainbow[Tassio Steinmann] {datetime.date.today().year}')     #shows too big on some devices
+    st.caption(f':blue-background[©] :rainbow[Tassio Steinmann] {datetime.date.today().year}')
 
 def CSS():
     removeTopPadding()
@@ -309,26 +335,31 @@ def CSS():
     hideImageFullscreenOption()
 
 def expanders():
-    with st.expander('Education & Interests', icon='💖'):
+    with st.expander('Education & Interests', icon='💖'):   #💡📓📕📖📗📘📙📚 💖❣️❤️‍🔥❤️💖 📝✏️✍️♾️
         col1, col2 = st.columns(2)
         with col1:
             education()
         with col2:
             interests()
 
-    with st.expander('Projects', icon='🔥'):
+    with st.expander('Projects', icon='🔥'):    #🔥📋📁📂
         projects()
 
-    with st.expander('Skills', icon='⭐'):
+    with st.expander('Skills', icon='🛠️'):  #⭐🌟⚙️💼🔧🛠️🪛
         skills()
 
-    with st.expander('Languagues', icon='🌟'):    
+    with st.expander('Languagues', icon='🌍'):  #🌍💬🌟    
         languages()
 
-    with st.expander('Accomplishments', icon='🚀'):
+    with st.expander('Accomplishments', icon='🚀'): #🏆🎖️🏅🥇	🎗️	✅🏁
         accomplishments()
 
 def Content():
+    # Sidebar        
+    buttonFace = ms.themes['light']['buttonFace'] if ms.themes['currentTheme'] == 'light' else ms.themes['dark']['buttonFace']
+    with st.sidebar:
+        #themeToggle()  #OLD
+        st.button(buttonFace, on_click=changeTheme) #, help='🌓')
     st.logo("./images/logoB.png", link="https://www.linkedin.com/in/tassios/")
 
     aboutText()
