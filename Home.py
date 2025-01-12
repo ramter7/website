@@ -228,7 +228,7 @@ def projectsStyle(projectName, imageWidth, useColumnWidth):
     with st.container(border = True):
         col1, col2 = st.columns(2)
         with col1:
-            st.image(f'./projects/{projectName}/featured.jpg', width=imageWidth, use_column_width=useColumnWidth)
+            st.image(f'./projects/{projectName}/featured.jpg', width=imageWidth, use_container_width=useColumnWidth)
         with col2:
             #st.page_link(f'pages/{projectName}.py', label=projectName, icon='🔍')
             #OR
@@ -269,16 +269,16 @@ def skills():
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.image('./icons/code.svg', caption='C#', width=skillsSVGwidth, use_column_width=useColumnWidth)
-        st.image('./icons/js.svg', caption='Java Script', width=skillsSVGwidth, use_column_width=useColumnWidth)
+        st.image('./icons/code.svg', caption='C#', width=skillsSVGwidth, use_container_width=useColumnWidth)
+        st.image('./icons/js.svg', caption='Java Script', width=skillsSVGwidth, use_container_width=useColumnWidth)
         
     with col2:
-        st.image('./icons/unity.svg', caption='Unity', width=skillsSVGwidth, use_column_width=useColumnWidth)
-        st.image('./icons/python.svg', caption='Python', width=skillsSVGwidth, use_column_width=useColumnWidth)
+        st.image('./icons/unity.svg', caption='Unity', width=skillsSVGwidth, use_container_width=useColumnWidth)
+        st.image('./icons/python.svg', caption='Python', width=skillsSVGwidth, use_container_width=useColumnWidth)
 
     with col3:
-        st.image('./icons/git.svg', caption='Git', width=skillsSVGwidth, use_column_width=useColumnWidth)
-        st.image('./icons/html5.svg', caption='HTML&CSS', width=skillsSVGwidth, use_column_width=useColumnWidth)
+        st.image('./icons/git.svg', caption='Git', width=skillsSVGwidth, use_container_width=useColumnWidth)
+        st.image('./icons/html5.svg', caption='HTML&CSS', width=skillsSVGwidth, use_container_width=useColumnWidth)
 
 # Languages (https://kapowaz.github.io/square-flags/gallery)
 def languages():
@@ -289,16 +289,16 @@ def languages():
     col1, col2, col3 = st.columns(3)
     with st.container():
         with col1:
-            st.image('./icons/switzerland.svg', caption='Swiss', width=languagesSVGwidth, use_column_width=useColumnWidth)
-            st.image('./icons/germany.svg', caption='German', width=languagesSVGwidth, use_column_width=useColumnWidth)
+            st.image('./icons/switzerland.svg', caption='Swiss', width=languagesSVGwidth, use_container_width=useColumnWidth)
+            st.image('./icons/germany.svg', caption='German', width=languagesSVGwidth, use_container_width=useColumnWidth)
             
         with col2:
-            st.image('./icons/catalonia.svg', caption='Catalan', width=languagesSVGwidth, use_column_width=useColumnWidth)
-            st.image('./icons/spain.svg', caption='Spanish', width=languagesSVGwidth, use_column_width=useColumnWidth)
+            st.image('./icons/catalonia.svg', caption='Catalan', width=languagesSVGwidth, use_container_width=useColumnWidth)
+            st.image('./icons/spain.svg', caption='Spanish', width=languagesSVGwidth, use_container_width=useColumnWidth)
 
         with col3:
-            st.image('./icons/united-kingdom.svg', caption='English', width=languagesSVGwidth, use_column_width=useColumnWidth)
-            st.image('./icons/france.svg', caption='French', width=languagesSVGwidth, use_column_width=useColumnWidth)
+            st.image('./icons/united-kingdom.svg', caption='English', width=languagesSVGwidth, use_container_width=useColumnWidth)
+            st.image('./icons/france.svg', caption='French', width=languagesSVGwidth, use_container_width=useColumnWidth)
 
 # Accomplishments
 def accomplishments():
